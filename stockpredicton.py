@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 
 tata_motors=pd.read_csv("C:/Users/ROHIT/Downloads/stock/TATAMOTORS.csv")
 tata_steel=pd.read_csv("C:/Users/ROHIT/Downloads/stock/TATASTEEL.csv")
-tcs=pd.read_csv("C:/Users/ROHIT/Downloads/stock/TCS.csv")
 tata_motors.shape
 
 
@@ -19,7 +18,6 @@ tata_motors.duplicated().sum()
 
 tata_steel.duplicated().sum()
 
-tcs.duplicated().sum()
 
 
 tata_motors.describe().round(2)
@@ -27,12 +25,10 @@ tata_motors.describe().round(2)
 
 tata_motors["Date"]=pd.to_datetime(tata_motors["Date"])
 tata_steel["Date"]=pd.to_datetime(tata_steel["Date"])
-tcs["Date"]=pd.to_datetime(tcs["Date"])
 
 
 tata_motors=tata_motors.drop(['Trades','Deliverable Volume','%Deliverble'], axis=1)
 tata_steel=tata_steel.drop(['Trades','Deliverable Volume','%Deliverble'], axis=1)
-tcs=tcs.drop(['Trades','Deliverable Volume','%Deliverble'], axis=1)
 
 
 tata_motors['Month']=tata_motors["Date"].dt.month
@@ -48,12 +44,6 @@ tata_steel['Year']=tata_steel["Date"].dt.year
 
 tata_steel['Day']=tata_steel["Date"].dt.day
 
-
-tcs['Day']=tcs['Date'].dt.day
-
-tcs['Year']=tcs['Date'].dt.year
-
-tcs['Month']=tcs['Date'].dt.month
 
 
 plt.figure(figsize=(20,7))
@@ -214,54 +204,6 @@ print("Tata Steel ROI from 2000-1-3 to 2021-04-30 =",roiTS,"%")
 sumTCS=0 #total amount invested in TCS
 
 s3=0 #number shares owned of TCS
-
-
-
-
-#calcuating total amount invested and number of shares owned in TCS
-
-for i in range(len(tcs)):
-
-    if tcs.loc[i,'Day']==30:
-
-        sumTCS+=tcs.loc[i,'Open']
-
-        s3+=1
-
-
-
-
-#displaying basic results
-
-print("Total Invested in TCS = Rs",round(sumTCS,2))
-
-print("Shares Owned of TCS =",s3)
-
-print("Average Investmentment of 1 share = Rs",round((sumTCS/s3),2))
-
-
-
-
-tcs_end=3099 #last open price of TCS on 2021-04-30
-
-#obtained by looking at the data or can be seen after executed tcs.tail()
-
-
-
-
-#calculating investment results
-
-result3=round((tcs_end*s3)-sumTCS,2)
-
-roiTCS=round((result3/sumTCS)*100,2)
-
-
-
-
-#displaying investment results
-
-print("nInvestment Result:")
-
 
 
 
